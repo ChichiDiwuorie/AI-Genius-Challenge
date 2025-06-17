@@ -80,11 +80,13 @@ Global accessibility via HTTP/S
 Unstructured data support (perfect for text, logs, PDFs, etc.)
 Integration with Azure AI Search for indexing and retrieval
 Scalable + cost-efficient for enterprise-grade workloads
+
+# Step 2: Building the Knowledge Base
  
-♦️ Stage 3: Provision the Azure Storage Account
+## ♦️ Stage 3: Provision the Azure Storage Account
 To store your incident documents in a structured, queryable form, you’ll need an Azure Storage Account. Think of it as your digital evidence vault — everything else (AI Search, OpenAI, vector indexes) will reference this central store.
  
-🛠️ Step-by-Step Guide: Creating the Storage Account
+## 🛠️ Step-by-Step Guide: Creating the Storage Account
 Open Azure Portal: Search for “Storage Accounts” in the top search bar and click Create.
  
 Basics Tab:
@@ -100,14 +102,14 @@ Ensure this region supports Azure OpenAI and Azure AI Search (important for late
 Performance: Leave as Standard.
 Redundancy (Replication): Choose Locally-redundant storage (LRS) — affordable and sufficient for this challenge.
  
-Click “Review + Create”
+## Click “Review + Create”
 Confirm all settings and then click Create. Azure will deploy your storage account in under a minute.
  
-📍 After Deployment
+## 📍 After Deployment
 Navigate to the newly created storage account.
 You’ll land on the Overview page — note down the Blob service endpoint and Storage account name (you’ll use them when configuring AI Search later).
  
-💡 Best Practice Tip
+## 💡 Best Practice Tip
 All resources you create from this point onward should stay within the same resource group (rag-challenge-rg) and region. This ensures:
 Lower latency (everything is nearby),
 Easier cleanup (delete the RG when done),
@@ -128,7 +130,7 @@ While setting up your Azure Storage Account, Azure Copilot can act as your real-
  
 With your storage account in place, it’s time to create a Blob container — essentially a secure folder where you’ll upload all the incident documents. This container will serve as the foundation for indexing and search in later stages.
  
-🛠️ Step-by-Step Guide: Creating the Blob Container
+## 🛠️ Step-by-Step Guide: Creating the Blob Container
  
 Navigate to the Storage Account:
 In the Azure Portal, open your storage account (e.g., ragstoragejohn).
@@ -167,11 +169,12 @@ When you're setting up the blob container, Azure Copilot can assist you in strea
 💬 Try this in Copilot: “Show me how to create a blob container for uploading private incident files” and watch it walk you through the safest setup.
 The following diagram shows the relationship between these resources.
 The following diagram shows the relationship between these resources.
-♦️ Stage 5: Upload the Root-Cause Document Pack to Azure Storage
+
+## ♦️ Stage 5: Upload the Root-Cause Document Pack to Azure Storage
  
 You’ve got the container. Now it’s time to fill it with evidence. These documents will power your RAG pipeline by serving as the source of truth for incident investigation.
  
-📄 Documents to Upload
+## 📄 Documents to Upload
 You should have received a Root-Cause Document Pack – either as:
 A set of individual .txt files, or
 A single combined file that you’ll need to split into multiple parts.
@@ -237,7 +240,7 @@ Did you know? You can mount Azure Blob storage as a drive in a VM or use it like
 # Step 3: Indexing the Evidence
 Azure Cognitive Search (recently also called Azure AI Search) is a fully managed search-as-a-service. First, we need to create the search service instance:
  
-Create Search Service: In the Azure Portal, click Create a resource and search for "Azure Cognitive Search" or "Azure AI Search". Select Azure Cognitive Search and click Create.
+## Create Search Service: In the Azure Portal, click Create a resource and search for "Azure Cognitive Search" or "Azure AI Search". Select Azure Cognitive Search and click Create.
  
 On the Create Azure Cognitive Search form (sometimes titled Create an Azure AI Search service):
  
@@ -255,7 +258,7 @@ Tip: You can try Azure AI Search for free – each subscription can have one fre
 Publicly accessible endpoint for the RAG
 Azure Cognitive Search provides an Import data wizard that can connect to your Azure Blob container and create an index, data source, and indexer for youlearn.microsoft.com. We will use this portal wizard to quickly ingest our documents from Stage 2.
  
-Steps to Index Data:
+## Steps to Index Data:
 In your search service’s Azure Portal page, find the Import data button (often on the Overview or Indexes tab). Click Import data to launch the wizard.
  
 Data source: Choose Azure Blob Storage as the data source type. You’ll be prompted to connect to your storage:
@@ -316,11 +319,11 @@ Alternatively, if the portal wizard is not available or you prefer code: you cou
  
 Note: Even without vector search, the combination of keyword + semantic search is usually sufficient for our small scenario. However, vector search shines when questions are phrased differently than the docs. For example, our docs might say "intrusion used a previously unknown exploit", and a question might be "was a zero-day used?". A vector search could match those semantically. We will demonstrate using embeddings at query time in the next stage.
 
-## Step 4: Empowering the AI – Azure OpenAI Integration
+# Step 4: Empowering the AI – Azure OpenAI Integration
 
 Azure OpenAI Service gives you access to powerful language models (like GPT-3.5 Turbo, GPT-4, and Ada for embeddings) via Azure. Creating this resource requires special access (you must have an approved application for OpenAI usage). Assuming you have access:
  
-Create Resource: In Azure Portal, click Create a resource and search for "Azure OpenAI". Select Azure OpenAI Service and click Create.
+## Create Resource: In Azure Portal, click Create a resource and search for "Azure OpenAI". Select Azure OpenAI Service and click Create.
  
 On the Basics tab of the Create form, fill in:
 Subscription & Resource Group: Use the same ones for consistency (rag-challenge-rg).
@@ -438,7 +441,7 @@ Testing: Try a couple of queries manually by calling your logic before deploymen
 Having set up both Search and OpenAI, you have all pieces needed for RAG. The last step is to deploy this as a web application or API that can be accessed as part of the gamified challenge (so that the evaluation agent or user can interact with it).
 
 
-## Step 5: Deployment – Bringing the Solution to Life
+# Step 5: Deployment – Bringing the Solution to Life
 
 [RESOURCE_PROVISIONING]
 READY
