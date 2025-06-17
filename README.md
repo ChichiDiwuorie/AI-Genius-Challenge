@@ -547,6 +547,9 @@ Clarity & length Human-readable, ≤ 300 words
 Meet every bullet, and your RAG pipeline passes its ultimate trial. The crisis-response board—and TruthSeeker—are watching. 🎯
 Submit Your Model
 
-Submit
+Submission
 
 http://127.0.0.1:5000
+
+<img width="407" alt="image" src="https://github.com/user-attachments/assets/8efe782b-ab05-4e0a-bb95-7d28465753b8" />
+
